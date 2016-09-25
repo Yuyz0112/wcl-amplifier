@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "WCL amplifier",
+  "version": "0.2.0",
+  "description": "Enhance Warcraft Combat Logs.",
+  "browser_action": {
+    "default_icon": "./images/icon.jpg",
+    "default_title": "WCL amplifier",
+    "default_popup": "./pages/popup.html"
+  },
+  "author": "Aryu",
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ]
+}
