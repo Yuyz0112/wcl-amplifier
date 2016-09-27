@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>select</title>
+  <link rel="stylesheet" href="http://cdn.bootcss.com/milligram/1.1.0/milligram.min.css">
+  <style>
+    html,
+    body,
+    svg {
+      width: 100%;
+      height: 100%;
+      color: black;
+    }
+    .test {
+      background-color: red;
+      width: 100px;
+      height: 100px;
+      bottom: 10px;
+    }
+    ol > li {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    复苏触发总量：
+    <li>治疗波：8次 88000法力值</li>
+    <li>治疗之涌 / 激流：23次 152191法力值</li>
+    <li>治疗链：174次 478500法力值</li>
+    <li>总计：205次 718693法力值</li>
+  </ul>
+  <p>是否使用无底深渊？ 是</p>
+  <ul>
+    无底深渊触发量：
+    <li>治疗波：4次 44000法力值</li>
+    <li>治疗之涌 / 激流：16次 105872法力值</li>
+    <li>治疗链：85次 233750法力值</li>
+    <li>总计：105次 383622法力值</li>
+  </ul>
+  <p>是否使用复苏浪潮？ 否</p>
+  <p>使用复苏浪潮将提供：239250法力值</p>
+  <script src="./sf.js"></script>
+  <script>
+    var arr = []
+    var counter = {
+      one: 0,
+      two: 0,
+      three: 0,
+      crit: {
+        one: 0,
+        two: 0,
+        three: 0
+      }
+    }
+    events.events.forEach(event => {
+      if (event.ability && event.ability.name === '复苏') {
+        arr.push(event.resourceChange)
+      }
+    })
+    arr.forEach(event => {
+      if (event === 11000) counter.one++
+      else if (event === 6617 || event === 6618) counter.two++
+      else if (event === 4125 || event === 2750) counter.three++
+      else alert(event)
+    })
+    spell.entries.forEach(spell => {
+      if (spell.name === '治疗波') {
+        counter.crit.one = spell.critHitCount
+      } else if (spell.name === '治疗之涌' || spell.name === '激流') {
+        counter.crit.two = spell.critHitCount
+      } else if (spell.name === '治疗链') {
+        counter.crit.three = spell.critHitCount
+      }
+    })
+    var c = 0
+    events.events.forEach(event => {
+      if (event.ability && event.ability.name === '复苏') {
+        c++
+      }
+    })
+    console.log(counter, counter.crit ,arr.length)
+  </script>
+</body>
+</html>
